@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calculator</title>
+</head>
+<body style="
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#1e293b,#0f172a);
+    font-family:Arial, sans-serif;
+">
+
+<div style="
+    width:340px;
+    background:white;
+    padding:20px;
+    border-radius:20px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.3);
+">
+
+    <h2 style="
+        text-align:center;
+        margin-top:0;
+        color:#1e293b;
+    ">
+        Calculator
+    </h2>
+
+    <input
+        type="text"
+        id="display"
+        readonly
+        style="
+            width:100%;
+            height:60px;
+            font-size:28px;
+            text-align:right;
+            border:none;
+            background:#f1f5f9;
+            border-radius:12px;
+            margin-bottom:15px;
+            padding-right:10px;
+            box-sizing:border-box;
+        "
+    >
+
+    <div style="
+        display:grid;
+        grid-template-columns:repeat(4,1fr);
+        gap:10px;
+    ">
+
+        <button onclick="clearDisplay()" style="height:60px;font-size:22px;background:#ef4444;color:white;border:none;border-radius:12px;">C</button>
+        <button onclick="append('/')" style="height:60px;font-size:22px;background:#3b82f6;color:white;border:none;border-radius:12px;">÷</button>
+        <button onclick="append('*')" style="height:60px;font-size:22px;background:#3b82f6;color:white;border:none;border-radius:12px;">×</button>
+        <button onclick="append('-')" style="height:60px;font-size:22px;background:#3b82f6;color:white;border:none;border-radius:12px;">−</button>
+
+        <button onclick="append('7')" style="height:60px;font-size:22px;">7</button>
+        <button onclick="append('8')" style="height:60px;font-size:22px;">8</button>
+        <button onclick="append('9')" style="height:60px;font-size:22px;">9</button>
+        <button onclick="append('+')" style="height:60px;font-size:22px;background:#3b82f6;color:white;border:none;border-radius:12px;">+</button>
+
+        <button onclick="append('4')" style="height:60px;font-size:22px;">4</button>
+        <button onclick="append('5')" style="height:60px;font-size:22px;">5</button>
+        <button onclick="append('6')" style="height:60px;font-size:22px;">6</button>
+        <button onclick="append('%')" style="height:60px;font-size:22px;background:#3b82f6;color:white;border:none;border-radius:12px;">%</button>
+
+        <button onclick="append('1')" style="height:60px;font-size:22px;">1</button>
+        <button onclick="append('2')" style="height:60px;font-size:22px;">2</button>
+        <button onclick="append('3')" style="height:60px;font-size:22px;">3</button>
+        <button onclick="backspace()" style="height:60px;font-size:22px;background:#f59e0b;color:white;border:none;border-radius:12px;">⌫</button>
+
+        <button onclick="append('0')" style="height:60px;font-size:22px;">0</button>
+        <button onclick="append('.')" style="height:60px;font-size:22px;">.</button>
+        <button onclick="calculate()" style="height:60px;font-size:22px;background:#10b981;color:white;border:none;border-radius:12px;">=</button>
+        <button onclick="append('(')" style="height:60px;font-size:22px;">(</button>
+    </div>
+
+    <div style="
+        margin-top:15px;
+        background:#e2e8f0;
+        padding:15px;
+        border-radius:12px;
+    ">
+        <strong>Result:</strong>
+        <div id="result" style="
+            margin-top:8px;
+            font-size:24px;
+            color:#0f172a;
+            font-weight:bold;
+        ">
+            0
+        </div>
+    </div>
+
+</div>
+
+<script>
+function append(value){
+    document.getElementById("display").value += value;
+}
+
+function clearDisplay(){
+    document.getElementById("display").value = "";
+    document.getElementById("result").innerText = "0";
+}
+
+function backspace(){
+    let display = document.getElementById("display");
+    display.value = display.value.slice(0,-1);
+}
+
+function calculate(){
+    try{
+        let result = eval(document.getElementById("display").value);
+        document.getElementById("result").innerText = result;
+    }
+    catch{
+        document.getElementById("result").innerText = "Error";
+    }
+}
+</script>
+
+</body>
+</html>
