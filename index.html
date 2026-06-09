@@ -1,156 +1,495 @@
-<body style="
-margin:0;
-padding:0;
-font-family:Arial,sans-serif;
-background:linear-gradient(135deg,#0f172a,#1e293b,#334155);
-min-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
-">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<div style="
-width:95%;
-max-width:500px;
-padding:20px;
-background:rgba(255,255,255,0.1);
-backdrop-filter:blur(15px);
-border-radius:25px;
-box-shadow:0 8px 32px rgba(0,0,0,0.3);
-">
+<title>SARTHAK'S CALCULATOR</title>
 
-<h1 style="
-text-align:center;
-color:white;
-margin-bottom:20px;
-font-size:clamp(24px,5vw,36px);
-letter-spacing:2px;
-">
-SARTHAK'S CALCULATOR
-</h1>
+<style>
 
-<input
-type="text"
-id="display"
-readonly
-style="
-width:100%;
-height:70px;
-font-size:32px;
-text-align:right;
-padding-right:15px;
-box-sizing:border-box;
-border:none;
-border-radius:15px;
-background:white;
-margin-bottom:15px;
-"
->
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
 
-<div style="
-background:white;
-border-radius:15px;
-padding:15px;
-margin-bottom:20px;
-text-align:right;
-">
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
 
-<div style="
-font-size:14px;
-color:gray;
-">
-RESULT
-</div>
+    background:
+    linear-gradient(
+        135deg,
+        #0f172a,
+        #1e293b,
+        #334155
+    );
+}
 
-<div id="result" style="
-font-size:36px;
-font-weight:bold;
-color:#0f172a;
-">
-0
-</div>
+.calculator{
+    width:100%;
+    max-width:900px;
+     min-height:auto;
 
-</div>
+    background:rgba(255,255,255,0.08);
 
-<div style="
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:12px;
-">
+    backdrop-filter:blur(25px);
 
-<button onclick="clearDisplay()" style="height:65px;font-size:22px;border:none;border-radius:15px;background:#ef4444;color:white;">C</button>
+    border:1px solid rgba(255,255,255,0.15);
 
-<button onclick="append('(')" style="height:65px;font-size:22px;border:none;border-radius:15px;">(</button>
+    border-radius:30px;
 
-<button onclick="append(')')" style="height:65px;font-size:22px;border:none;border-radius:15px;">)</button>
+    padding:25px;
 
-<button onclick="append('/')" style="height:65px;font-size:22px;border:none;border-radius:15px;background:#3b82f6;color:white;">÷</button>
+    box-shadow:
+    0 20px 50px rgba(0,0,0,.4);
+}
 
-<button onclick="append('7')" style="height:65px;font-size:22px;border:none;border-radius:15px;">7</button>
+.title{
+    text-align:center;
+    color:white;
+    font-size:clamp(1.7rem,4vw,3rem);
+    font-weight:800;
+    letter-spacing:3px;
+    margin-bottom:25px;
+}
 
-<button onclick="append('8')" style="height:65px;font-size:22px;border:none;border-radius:15px;">8</button>
+.display{
+    width:100%;
+    height:85px;
 
-<button onclick="append('9')" style="height:65px;font-size:22px;border:none;border-radius:15px;">9</button>
+    border:none;
 
-<button onclick="append('*')" style="height:65px;font-size:22px;border:none;border-radius:15px;background:#3b82f6;color:white;">×</button>
+    border-radius:18px;
 
-<button onclick="append('4')" style="height:65px;font-size:22px;border:none;border-radius:15px;">4</button>
+    background:white;
 
-<button onclick="append('5')" style="height:65px;font-size:22px;border:none;border-radius:15px;">5</button>
+    padding:15px;
 
-<button onclick="append('6')" style="height:65px;font-size:22px;border:none;border-radius:15px;">6</button>
+    text-align:right;
 
-<button onclick="append('-')" style="height:65px;font-size:22px;border:none;border-radius:15px;background:#3b82f6;color:white;">−</button>
+    font-size:2rem;
 
-<button onclick="append('1')" style="height:65px;font-size:22px;border:none;border-radius:15px;">1</button>
+    margin-bottom:15px;
+}
 
-<button onclick="append('2')" style="height:65px;font-size:22px;border:none;border-radius:15px;">2</button>
+.result-box{
+    background:white;
 
-<button onclick="append('3')" style="height:65px;font-size:22px;border:none;border-radius:15px;">3</button>
+    border-radius:18px;
 
-<button onclick="append('+')" style="height:65px;font-size:22px;border:none;border-radius:15px;background:#3b82f6;color:white;">+</button>
+    padding:15px;
 
-<button onclick="append('%')" style="height:65px;font-size:22px;border:none;border-radius:15px;">%</button>
+    margin-bottom:20px;
+}
 
-<button onclick="append('0')" style="height:65px;font-size:22px;border:none;border-radius:15px;">0</button>
+.result-label{
+    color:#64748b;
+    font-size:14px;
+}
 
-<button onclick="append('.')" style="height:65px;font-size:22px;border:none;border-radius:15px;">.</button>
+.result{
+    text-align:right;
+    font-size:2rem;
+    font-weight:bold;
+    color:#0f172a;
+}
 
-<button onclick="calculate()" style="
-height:65px;
-font-size:22px;
-border:none;
-border-radius:15px;
-background:#10b981;
-color:white;
-font-weight:bold;
-">
-=
-</button>
+.buttons{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:12px;
+}
 
-</div>
+button{
+    height:65px;
+
+    border:none;
+
+    border-radius:16px;
+
+    cursor:pointer;
+
+    font-size:1.1rem;
+
+    font-weight:700;
+
+    transition:.2s;
+}
+
+button:hover{
+    transform:translateY(-3px);
+}
+
+.number{
+    background:white;
+}
+
+.operator{
+    background:#3b82f6;
+    color:white;
+}
+
+.function{
+    background:#8b5cf6;
+    color:white;
+}
+
+.equal{
+    background:#10b981;
+    color:white;
+}
+
+.clear{
+    background:#ef4444;
+    color:white;
+}
+
+.back{
+    background:#f59e0b;
+    color:white;
+}
+
+.history{
+    margin-top:25px;
+
+    background:rgba(255,255,255,0.08);
+
+    border-radius:20px;
+
+    padding:15px;
+
+    color:white;
+
+    max-height:180px;
+
+    overflow-y:auto;
+}
+
+.history-dropdown{
+    margin-top:20px;
+    background:rgba(255,255,255,.08);
+    border-radius:15px;
+    color:white;
+    overflow:hidden;
+}
+
+.history-dropdown summary{
+    padding:15px;
+    cursor:pointer;
+    font-weight:bold;
+    font-size:1rem;
+    list-style:none;
+}
+
+.history-dropdown summary::-webkit-details-marker{
+    display:none;
+}
+
+#historyList{
+    padding:15px;
+    max-height:200px;
+    overflow-y:auto;
+    line-height:1.8;
+}
+
+.display{
+    overflow-x:auto;
+    white-space:nowrap;
+}
+
+.result{
+    word-break:break-all;
+    overflow-wrap:anywhere;
+}
+
+/* Mobile Responsive */
+
+@media screen and (max-width:768px){
+
+    body{
+        padding:10px;
+        align-items:flex-start;
+    }
+
+    .calculator{
+        width:100%;
+        max-width:100%;
+        padding:15px;
+        border-radius:20px;
+    }
+
+    .title{
+        font-size:1.3rem;
+        letter-spacing:1px;
+    }
+
+    .display{
+        height:65px;
+        font-size:1.2rem;
+    }
+
+    .result{
+        font-size:1.4rem;
+    }
+
+    .buttons{
+        gap:8px;
+    }
+
+    button{
+        height:52px;
+        font-size:0.9rem;
+    }
+}
+
+@media screen and (max-width:480px){
+
+    .buttons{
+        grid-template-columns:repeat(4,1fr);
+    }
+
+    button{
+        height:48px;
+        font-size:0.85rem;
+    }
+
+    .display{
+        font-size:1rem;
+    }
+
+    .title{
+        font-size:1.1rem;
+    }
+}
+
+.history h3{
+    margin-bottom:10px;
+}
+
+#historyList{
+    line-height:1.7;
+}
+
+@media(max-width:700px){
+
+    .buttons{
+        grid-template-columns:repeat(4,1fr);
+    }
+
+    button{
+        height:58px;
+        font-size:1rem;
+    }
+
+    .display{
+        height:75px;
+        font-size:1.6rem;
+    }
+
+    .result{
+        font-size:1.6rem;
+    }
+}
+
+@media(max-width:480px){
+
+    .calculator{
+        padding:15px;
+    }
+
+    .buttons{
+        gap:8px;
+    }
+
+    button{
+        height:55px;
+        font-size:.9rem;
+    }
+
+    .title{
+        font-size:1.4rem;
+        letter-spacing:1px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="calculator">
+
+    <div class="title">
+        SARTHAK'S CALCULATOR
+    </div>
+
+    <input
+        id="display"
+        class="display"
+        readonly
+    >
+
+    <div class="result-box">
+
+        <div class="result-label">
+            RESULT
+        </div>
+
+        <div id="result" class="result">
+            0
+        </div>
+
+    </div>
+
+    <div class="buttons">
+
+        <!-- Scientific -->
+
+        <button class="function" onclick="append('sin(')">sin</button>
+        <button class="function" onclick="append('cos(')">cos</button>
+        <button class="function" onclick="append('tan(')">tan</button>
+        <button class="function" onclick="append('sqrt(')">√</button>
+        <button class="function" onclick="append('log(')">log</button>
+
+        <button class="function" onclick="append('ln(')">ln</button>
+        <button class="function" onclick="append('pi')">π</button>
+        <button class="function" onclick="append('e')">e</button>
+        <button class="function" onclick="append('pow(')">xʸ</button>
+        <button class="function" onclick="append('factorial(')">n!</button>
+
+        <!-- Controls -->
+
+        <button class="clear" onclick="clearDisplay()">C</button>
+        <button class="back" onclick="backspace()">⌫</button>
+        <button class="operator" onclick="append('(')">(</button>
+        <button class="operator" onclick="append(')')">)</button>
+        <button class="operator" onclick="append('%')">%</button>
+
+        <!-- Numbers -->
+
+        <button class="number" onclick="append('7')">7</button>
+        <button class="number" onclick="append('8')">8</button>
+        <button class="number" onclick="append('9')">9</button>
+        <button class="operator" onclick="append('/')">÷</button>
+        <button class="operator" onclick="append('*')">×</button>
+
+        <button class="number" onclick="append('4')">4</button>
+        <button class="number" onclick="append('5')">5</button>
+        <button class="number" onclick="append('6')">6</button>
+        <button class="operator" onclick="append('-')">−</button>
+        <button class="operator" onclick="append('+')">+</button>
+
+        <button class="number" onclick="append('1')">1</button>
+        <button class="number" onclick="append('2')">2</button>
+        <button class="number" onclick="append('3')">3</button>
+        <button class="number" onclick="append('.')">.</button>
+        <button class="function" onclick="append('complex(')">a+bi</button>
+
+        <button class="number" onclick="append('0')">0</button>
+
+        <button
+            class="equal"
+            onclick="calculate()"
+            style="grid-column:span 4;"
+        >
+            =
+        </button>
+
+    </div>
+
+   <details class="history-dropdown">
+    <summary>📜 Calculation History</summary>
+    <div id="historyList"></div>
+</details>
 
 </div>
 
 <script>
+
 function append(value){
-document.getElementById("display").value += value;
+    document.getElementById("display").value += value;
+}
+
+function backspace(){
+    let display =
+    document.getElementById("display");
+
+    display.value =
+    display.value.slice(0,-1);
 }
 
 function clearDisplay(){
-document.getElementById("display").value="";
-document.getElementById("result").innerHTML="0";
+
+    document.getElementById("display").value="";
+
+    document.getElementById("result").innerHTML="0";
 }
 
-function calculate(){
-try{
-let result=eval(document.getElementById("display").value);
-document.getElementById("result").innerHTML=result;
+async function calculate(){
+
+    let expression =
+    document.getElementById("display").value;
+
+    const response = await fetch(
+        "/calculate",
+        {
+            method:"POST",
+
+            headers:{
+                "Content-Type":"application/json"
+            },
+
+            body:JSON.stringify({
+                expression:expression
+            })
+        }
+    );
+
+    const data = await response.json();
+
+    document.getElementById("result")
+    .innerHTML = data.result;
+
+    document.getElementById("historyList")
+    .innerHTML =
+    expression +
+    " = " +
+    data.result +
+    "<br>" +
+    document.getElementById("historyList")
+    .innerHTML;
 }
-catch{
-document.getElementById("result").innerHTML="Error";
-}
-}
+
+document.addEventListener(
+    "keydown",
+    function(e){
+
+        let key=e.key;
+
+        if(
+            "0123456789+-*/()."
+            .includes(key)
+        ){
+            append(key);
+        }
+
+        if(key==="Enter"){
+            calculate();
+        }
+
+        if(key==="Backspace"){
+            backspace();
+        }
+    }
+);
+
 </script>
 
 </body>
+</html>
